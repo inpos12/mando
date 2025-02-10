@@ -1,0 +1,22 @@
+.p {
+  color: #ff0000;
+  border: 1px solid #ff0000;
+  padding: 0 3px;
+  font-weight: bold;
+}
+.textbox {
+  width: 117px;
+  display: flex;
+  justify-content: space-between;
+}
+.slideText {
+  position: absolute;
+  z-index: 100;
+  bottom: 0;
+  color: black;
+  background-color: rgba(180, 35, 49, 0.7);
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  padding: 12px 0;
+}

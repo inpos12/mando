@@ -1,7 +1,10 @@
+// jsconfig.json
+
 {
   "compilerOptions": {
+    "baseUrl": ".", // 현재 디렉터리를 기준으로 경로 설정
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"] // `@/`를 `app/` 디렉터리로 매핑
     }
   }
 }
