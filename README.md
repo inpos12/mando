@@ -2,10 +2,10 @@
 # 프로젝트 소개
 Next.js와 MongoDB를 처음 배우면서, 개발과 공부를 동시에 하기 위해 시작한 1인개발 프로젝트입니다.
 # 기술
-+ ### Frontend
-  + React , Next.js , JavaScript , Css
-+ ### Backend
-  + Next.js , Api Routes
++ ### Front-end
+  + React, Next.js, JavaScript, Css
++ ### Back-end
+  + Next.js, Api Routes
 + ### Library
   + axios, bcryptjs, jsonwebtoken, jwt-decode
 + ### DataBase
