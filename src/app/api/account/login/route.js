@@ -48,7 +48,7 @@ export async function POST(req) {
         process.env.JWT_SECRET,
         {
           algorithm: "HS256",
-          expiresIn: "1m",
+          expiresIn: "30m",
         }
       );
 
@@ -62,7 +62,7 @@ export async function POST(req) {
         httpOnly: true, // 자바스크립트에서 쿠키에 접근할 수 없도록 설정
         // secure: process.env.NODE_ENV === "production", // HTTPS에서만 전송
         secure: false,
-        maxAge: 60 * 1000,
+        maxAge: 30 * 60 * 1000,
         // maxAge: 10 * 60 * 1000, // 쿠키 만료 시간 (10분)
         path: "/", // 모든 경로에서 쿠키가 유효하도록 설정
         sameSite: "Strict", // CSRF 공격 방지를 위한 SameSite 설정

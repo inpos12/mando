@@ -4,167 +4,182 @@ import { H3 } from "../common/common.style";
 import { useEffect, useState } from "react";
 
 export const DeletButton = styled.button`
-  margin-right: 29px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #f5f5f5;
+    color: #b42432;
+    border-color: #b42432;
+  }
+
+  @media (max-width: 768px) {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+  }
 `;
 
-export const Button = styled.button`
-  padding: 4px 14px;
-  font-size: 18px;
-  background-color: transparent;
+export const TimeContainer = styled.div`
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
-  border: 1px solid black;
-  border-radius: 10px;
-  margin: 5px 0;
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
 `;
-export const PaymentButton = styled.button`
-  font-size: 20px;
+
+export const TimeSection = styled.div`
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+  }
+`;
+
+export const TimeTitle = styled(H3)`
+  margin-bottom: 16px;
+  color: #333;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+`;
+
+export const ButtonGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+`;
+
+export const TimeButton = styled.button`
   width: 100%;
-  background-color: #bf2023;
-  border-radius: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: ${(props) => (props.$active ? "#b42432" : "transparent")};
+  color: ${(props) => (props.$active ? "white" : "#333")};
+  border: 1px solid ${(props) => (props.$active ? "#b42432" : "#e0e0e0")};
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => (props.$active ? "#b42432" : "#f5f5f5")};
+    border-color: #b42432;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+`;
+
+export const PaymentButton = styled.button`
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+  background-color: #b42432;
   color: white;
-  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+
+  &:hover {
+    background-color: #a01f2c;
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    padding: 14px;
+    font-size: 1rem;
+  }
 `;
 
 export default function TimeSelect() {
-  const [activeButton, setActiveButton] = useState(null); // 클릭된 버튼 ID 추적
+  const [activeButton, setActiveButton] = useState(null);
+
   function handleButtonClick(id) {
-    setActiveButton(id); // 클릭된 버튼 ID로 상태 업데이트
+    setActiveButton(id);
   }
 
+  const morningTimes = [
+    { id: "1", time: "09:00" },
+    { id: "2", time: "10:00" },
+    { id: "3", time: "11:00" },
+    { id: "4", time: "12:00" },
+  ];
+
+  const afternoonTimes = [
+    { id: "5", time: "13:00" },
+    { id: "6", time: "14:00" },
+    { id: "7", time: "15:00" },
+    { id: "8", time: "16:00" },
+    { id: "9", time: "17:00" },
+    { id: "10", time: "18:00" },
+    { id: "11", time: "19:00" },
+    { id: "12", time: "20:00" },
+  ];
+
   return (
-    <>
-      <H3 style={{ marginBottom: "10px" }}>오전</H3>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Button
-          id="1"
-          onClick={() => handleButtonClick("1")} // 클릭 시 해당 버튼 ID를 상태로 업데이트
-          style={{
-            backgroundColor: activeButton === "1" ? "#bf2023" : "transparent",
-            color: activeButton === "1" ? "white" : "",
-          }}
-        >
-          09:00
-        </Button>
-        <Button
-          id="2"
-          onClick={() => handleButtonClick("2")}
-          style={{
-            backgroundColor: activeButton === "2" ? "#bf2023" : "transparent",
-            color: activeButton === "2" ? "white" : "",
-          }}
-        >
-          10:00
-        </Button>
-        <Button
-          id="3"
-          onClick={() => handleButtonClick("3")}
-          style={{
-            backgroundColor: activeButton === "3" ? "#bf2023" : "transparent",
-            color: activeButton === "3" ? "white" : "",
-          }}
-        >
-          11:00
-        </Button>
-        <Button
-          id="4"
-          onClick={() => handleButtonClick("4")}
-          style={{
-            backgroundColor: activeButton === "4" ? "#bf2023" : "transparent",
-            color: activeButton === "4" ? "white" : "",
-          }}
-        >
-          12:00
-        </Button>
-      </div>
-      <H3 style={{ margin: "10px 0" }}>오후</H3>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-        }}
-      >
-        <Button
-          id="5"
-          onClick={() => handleButtonClick("5")} // 클릭 시 해당 버튼 ID를 상태로 업데이트
-          style={{
-            backgroundColor: activeButton === "5" ? "#bf2023" : "transparent", // 클릭된 버튼만 빨간색
-            color: activeButton === "5" ? "white" : "",
-          }}
-        >
-          01:00
-        </Button>
-        <Button
-          id="6"
-          onClick={() => handleButtonClick("6")}
-          style={{
-            backgroundColor: activeButton === "6" ? "#bf2023" : "transparent",
-            color: activeButton === "6" ? "white" : "",
-          }}
-        >
-          02:00
-        </Button>
-        <Button
-          id="7"
-          onClick={() => handleButtonClick("7")}
-          style={{
-            backgroundColor: activeButton === "7" ? "#bf2023" : "transparent",
-            color: activeButton === "7" ? "white" : "",
-          }}
-        >
-          03:00
-        </Button>
-        <Button
-          id="8"
-          onClick={() => handleButtonClick("8")}
-          style={{
-            backgroundColor: activeButton === "8" ? "#bf2023" : "transparent",
-            color: activeButton === "8" ? "white" : "",
-          }}
-        >
-          04:00
-        </Button>
-        <Button
-          id="9"
-          onClick={() => handleButtonClick("9")} // 클릭 시 해당 버튼 ID를 상태로 업데이트
-          style={{
-            backgroundColor: activeButton === "9" ? "#bf2023" : "transparent", // 클릭된 버튼만 빨간색
-            color: activeButton === "9" ? "white" : "",
-          }}
-        >
-          05:00
-        </Button>
-        <Button
-          id="10"
-          onClick={() => handleButtonClick("10")}
-          style={{
-            backgroundColor: activeButton === "10" ? "#bf2023" : "transparent",
-            color: activeButton === "10" ? "white" : "",
-          }}
-        >
-          06:00
-        </Button>
-        <Button
-          id="11"
-          onClick={() => handleButtonClick("11")}
-          style={{
-            backgroundColor: activeButton === "11" ? "#bf2023" : "transparent",
-            color: activeButton === "11" ? "white" : "",
-          }}
-        >
-          07:00
-        </Button>
-        <Button
-          id="12"
-          onClick={() => handleButtonClick("12")}
-          style={{
-            backgroundColor: activeButton === "12" ? "#bf2023" : "transparent",
-            color: activeButton === "12" ? "white" : "",
-          }}
-        >
-          08:00
-        </Button>
-      </div>
-    </>
+    <TimeContainer>
+      <TimeSection>
+        <TimeTitle>오전</TimeTitle>
+        <ButtonGrid>
+          {morningTimes.map(({ id, time }) => (
+            <TimeButton
+              key={id}
+              $active={activeButton === id}
+              onClick={() => handleButtonClick(id)}
+            >
+              {time}
+            </TimeButton>
+          ))}
+        </ButtonGrid>
+      </TimeSection>
+
+      <TimeSection>
+        <TimeTitle>오후</TimeTitle>
+        <ButtonGrid>
+          {afternoonTimes.map(({ id, time }) => (
+            <TimeButton
+              key={id}
+              $active={activeButton === id}
+              onClick={() => handleButtonClick(id)}
+            >
+              {time}
+            </TimeButton>
+          ))}
+        </ButtonGrid>
+      </TimeSection>
+    </TimeContainer>
   );
 }

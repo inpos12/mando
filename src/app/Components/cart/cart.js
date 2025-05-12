@@ -3,7 +3,6 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import TimeSelect, { DeletButton, PaymentButton } from "./cart.style";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
-import { useRouter } from "next/navigation";
 
 import {
   Container,
@@ -19,6 +18,125 @@ import { LoginFullContiner } from "../common/Login.style";
 import styled from "styled-components";
 
 const Image = dynamic(() => import("next/image"), { ssr: false });
+
+const CartPageContainer = styled(Container)`
+  padding: 40px 20px;
+
+  @media (max-width: 768px) {
+    padding: 20px 12px;
+  }
+`;
+
+const CartContent = styled(Row)`
+  max-width: 1220px;
+  margin: 0 auto;
+  background: #f6f6f6;
+  border-radius: 12px;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+`;
+
+const CartItemsSection = styled(Ul)`
+  display: block;
+  width: 65%;
+  padding: 24px;
+  background: #f7f7f7;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+`;
+
+const CartHeader = styled(Li)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+
+  @media (max-width: 768px) {
+    padding-bottom: 12px;
+  }
+`;
+
+const CartItem = styled(Li)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 24px 0;
+  }
+`;
+
+const ItemInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const ItemDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+  gap: 8px;
+`;
+
+const ItemControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: space-between;
+  }
+`;
+
+const ItemSelect = styled.select`
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-weight: 600;
+  min-width: 80px;
+
+  &:focus {
+    outline: none;
+    border-color: #b42432;
+  }
+`;
+
+const OrderSummary = styled(Ul)`
+  padding: 24px;
+  display: block;
+  width: 35%;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+`;
 
 const TossPaymentButton = styled.button`
   background-color: #00b0ff; /* 버튼 배경색 */
@@ -45,12 +163,7 @@ const TossPaymentButton = styled.button`
   }
 `;
 
-const flex = {
-  display: "flex",
-};
-
 export default function Cart() {
-  const router = useRouter();
   const [payment, setPayment] = useState(false);
   const [itemList, setItemList] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
@@ -267,148 +380,118 @@ export default function Cart() {
 
   return (
     <>
-      {payment ? (
-        <>
-          <CheckoutPage />
-        </>
-      ) : (
-        <></>
-      )}
-
-      <Container>
-        <H1 style={{ textAlign: "center" }}>장바구니</H1>
-      </Container>
-      <Container
-        style={{
-          padding: "0",
-          justifyContent: "center",
-        }}
-      >
-        <Row style={{ maxWidth: "1220px" }}>
-          <Row
-            style={{
-              display: "flex",
-              width: "100%",
-              background: "#f6f6f6",
-              justifyContent: "space-around",
-            }}
-          >
-            <Ul
-              style={{
-                display: "block",
-                width: "65%",
-                padding: "20px",
-                background: "#f7f7f7",
-              }}
-            >
-              <Li
-                style={{
-                  ...flex,
-                  justifyContent: "space-between",
-                  padding: "0 0 20px 0",
-                }}
+      {payment && <CheckoutPage />}
+      <CartPageContainer>
+        <CartContent>
+          <CartItemsSection>
+            <CartHeader>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "12px" }}
               >
-                <div style={flex}>
-                  <DeletButton />
-                  <H3>SELECT ALL</H3>
-                </div>
-
+                <DeletButton />
+                <H3>전체 선택</H3>
+              </div>
+              <div style={{ display: "flex", gap: "32px" }}>
                 <H3>수량</H3>
-                <H3>총합</H3>
-              </Li>
-              <hr />
-              {itemList?.map((list, index) => (
-                <Li
-                  key={index}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    margin: "64px 0",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div style={flex}>
-                    <DeletButton onClick={() => handleDelet(list._id)}>
-                      x
-                    </DeletButton>
-                    <Image
-                      width={128}
-                      height={128}
-                      placeholder="blur"
-                      blurDataURL={base64 + blurImg}
-                      src={list.image}
-                      alt="ItemImage"
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        marginLeft: "10px",
-                      }}
-                    >
-                      <P style={{ fontWeight: "600" }}>
-                        상품이름 : {list.name}
-                      </P>
-                      <P style={{ fontWeight: "600" }}>
-                        상품가격 : {list.price}
-                      </P>
-                    </div>
-                  </div>
+                <H3>금액</H3>
+              </div>
+            </CartHeader>
 
-                  <select
-                    style={{ fontWeight: "600" }}
+            {itemList?.map((list, index) => (
+              <CartItem key={index}>
+                <ItemInfo>
+                  <DeletButton onClick={() => handleDelet(list._id)}>
+                    x
+                  </DeletButton>
+                  <Image
+                    width={100}
+                    height={100}
+                    placeholder="blur"
+                    blurDataURL={base64 + blurImg}
+                    src={list.image}
+                    alt="ItemImage"
+                    style={{ borderRadius: "8px" }}
+                  />
+                  <ItemDetails>
+                    <P style={{ fontWeight: "600" }}>{list.name}</P>
+                    <P style={{ fontWeight: "600" }}>
+                      {list.price.toLocaleString()}원
+                    </P>
+                  </ItemDetails>
+                </ItemInfo>
+
+                <ItemControls>
+                  <ItemSelect
                     onChange={(e) => handleCountChange(e, index)}
                     value={count[index] || 1}
                   >
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                    <option value={6}>6</option>
-                  </select>
+                    {[1, 2, 3, 4, 5, 6].map((num) => (
+                      <option key={num} value={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </ItemSelect>
+                  <P
+                    style={{
+                      fontWeight: "600",
+                      minWidth: "80px",
+                      textAlign: "right",
+                    }}
+                  >
+                    {price[index]}원
+                  </P>
+                </ItemControls>
+              </CartItem>
+            ))}
+          </CartItemsSection>
 
-                  <P style={{ fontWeight: "600" }}>{price[index]}</P>
-                </Li>
-              ))}
-            </Ul>
-            <Ul
+          <OrderSummary>
+            <Li
               style={{
-                padding: "20px",
-                display: "block",
-                width: "35%",
-                background: "#FFFFFF",
+                textAlign: "center",
+                fontSize: "1.2rem",
+                fontWeight: "600",
               }}
             >
-              <Li style={{ textAlign: "center" }}>예약 및 결제</Li>
-              <Li style={{ marginTop: "30px" }}>당일 예약만 가능합니다.</Li>
-              <hr style={{ margin: "30px 0" }} />
-              <Li>
-                <TimeSelect />
-                <hr style={{ margin: "30px 0" }} />
-                <H1 style={{ textAlign: "center", marginBottom: "30px" }}>
-                  {totalPrice}원
-                </H1>
-                <PaymentButton
-                  id="paymentbutton"
-                  onClick={() => {
-                    if (payment === false) {
-                      setPayment(true);
-                      console.log(payment);
-                    } else {
-                      setPayment(false);
-                      console.log(payment);
-                    }
-                  }}
-                >
-                  예약 및 결제
-                </PaymentButton>
-              </Li>
-            </Ul>
-          </Row>
-        </Row>
-      </Container>
+              예약 및 결제
+            </Li>
+            <Li style={{ margin: "20px 0", color: "#666" }}>
+              당일 예약만 가능합니다.
+            </Li>
+            <hr
+              style={{
+                margin: "20px 0",
+                border: "none",
+                borderTop: "1px solid #eee",
+              }}
+            />
+            <TimeSelect />
+            <hr
+              style={{
+                margin: "20px 0",
+                border: "none",
+                borderTop: "1px solid #eee",
+              }}
+            />
+            <H1
+              style={{
+                textAlign: "center",
+                marginBottom: "24px",
+                color: "#b42432",
+                fontSize: "1.8rem",
+              }}
+            >
+              {totalPrice?.toLocaleString()}원
+            </H1>
+            <PaymentButton
+              id="paymentbutton"
+              onClick={() => setPayment(!payment)}
+            >
+              예약 및 결제
+            </PaymentButton>
+          </OrderSummary>
+        </CartContent>
+      </CartPageContainer>
     </>
   );
 }
