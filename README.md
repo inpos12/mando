@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🥟 수경 왕만두
 
-## Getting Started
+## 📌 프로젝트 소개
+**Next.js**와 **MongoDB**를 처음 배우면서, 개발과 공부를 동시에 하기 위해 시작한 1인 개발 프로젝트입니다.  
+회원 관리 및 상품 판매를 위한 웹 애플리케이션을 구현했습니다.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ 기술 스택
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### ✅ Front-end
+- React  
+- Next.js  
+- JavaScript  
+- CSS
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### ✅ Back-end
+- Next.js  
+- API Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✅ Library
+- **axios**  
+- **bcryptjs**  
+- **jsonwebtoken (JWT)**  
+- **jwt-decode**
 
-## Learn More
+### ✅ DataBase
+- MongoDB
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧩 기능 설명
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🔐 로그인
+- **bcryptjs**를 사용하여 로그인 시 입력한 비밀번호와 암호화된 값을 비교하여 인증을 처리합니다.
+- **jsonwebtoken (JWT)**로 로그인 시 일부 정보를 포함한 토큰을 발급합니다.
+- **jwt-decode**로 JWT 토큰을 디코딩하고, 로그인된 사용자 정보를 확인하거나 토큰 만료 여부를 검사하는 데 활용합니다.
 
-## Deploy on Vercel
+### 📝 회원가입
+- **bcryptjs**를 사용하여 사용자 비밀번호를 암호화하여 안전하게 저장합니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 👤 내 정보 페이지
+- 내 정보 페이지에서 사용자 정보를 확인하고, 현재 비밀번호와 새 비밀번호를 입력하여 비밀번호 변경이 가능합니다.
+- 모든 비밀번호는 암호화된 후 처리됩니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### ⏰ 자동 로그아웃
+- JWT의 만료 시간을 설정하여 일정 시간이 지나면 자동으로 로그아웃되도록 구현했습니다.
+
+### 🛍️ 상품 상세 페이지
+- 상품 이름, 가격, 담기 버튼 등을 구현하여 상세 정보를 제공합니다.
+
+### 🛒 장바구니
+- 장바구니 페이지에서 상품 수량 선택 및 구매 버튼 기능을 구현했습니다.
+- **Toss OpenAPI**를 활용하여 테스트 결제 시스템을 추가했습니다.
+
+---
