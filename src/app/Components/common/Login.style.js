@@ -104,9 +104,15 @@ export function LoginForm(props) {
             name="name"
             placeholder="이름"
             type="text"
+            value={"홍길동"}
           />
-          <Input name="id" placeholder="아이디" type="text" />
-          <Input name="password" placeholder="비밀번호" type="password" />
+          <Input name="id" placeholder="아이디" type="text" value={"admin"} />
+          <Input
+            name="password"
+            placeholder="비밀번호"
+            type="password"
+            value={"admin"}
+          />
           <Input
             name="phone"
             type="tel"
@@ -116,6 +122,7 @@ export function LoginForm(props) {
             required
             display={props.display}
             disabled={props.phonedisabled}
+            value={"010-1234-5678"}
           />
           <Button type="submit">{props.button}</Button>
           <LinkButton onClick={props.linkhandler}>{props.link}</LinkButton>

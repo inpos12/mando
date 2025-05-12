@@ -27,8 +27,8 @@ export default function Login() {
         onSubmit={handlerRegister}
         style={{ display: "flex", flexDirection: "column" }}
       >
-        <input name="id" type="text" value="admin" />
-        <input name="password" type="password" value="admin" />
+        <input name="id" type="text" />
+        <input name="password" type="password" />
         <button type="submit">로그인</button>
       </form>
     </>
